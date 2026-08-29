@@ -89,6 +89,3 @@ python -m unittest discover -s scratch
 
 All tests should pass.
 
-## License
-
-This project is provided for educational purposes as part of the OASIS Infobyte internship and does not carry a formal open‑source license.
