@@ -34,32 +34,34 @@ from dotenv import load_dotenv
 # Load environment variables from .env if present
 load_dotenv()
 
-# Initialize TTS Engine persistent instance safely
-try:
-    _tts_engine = pyttsx3.init()
-    _tts_engine.setProperty("rate", 175)
-    _tts_engine.setProperty("volume", 1.0)
-except Exception as e:
-    _tts_engine = None
-    print(f"[Warning] Failed to initialize pyttsx3 engine: {e}")
-
+# Thread lock to synchronize TTS audio synthesis
 _tts_lock = threading.Lock()
 
 
 def speak(text: str) -> None:
     """
     Speaks the given text using text-to-speech and prints it to standard output.
-    Thread-safe implementation for background reminder notifications.
+    Thread-safe implementation for background reminder notifications and repeated responses.
     """
     print(f"Assistant: {text}")
-    global _tts_engine, _tts_lock
-    if _tts_engine is not None:
-        with _tts_lock:
+    global _tts_lock
+    with _tts_lock:
+        try:
+            # Ensure COM is initialized for background thread compatibility on Windows
             try:
-                _tts_engine.say(text)
-                _tts_engine.runAndWait()
-            except Exception as err:
-                print(f"[TTS Error] Could not speak response: {err}")
+                import pythoncom
+                pythoncom.CoInitialize()
+            except Exception:
+                pass
+
+            engine = pyttsx3.init()
+            engine.setProperty("rate", 175)
+            engine.setProperty("volume", 1.0)
+            engine.say(text)
+            engine.runAndWait()
+            engine.stop()
+        except Exception as err:
+            print(f"[TTS Error] Could not speak response: {err}")
 
 
 def listen(recognizer: sr.Recognizer, mic: sr.Microphone) -> Optional[str]:
