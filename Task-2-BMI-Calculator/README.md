@@ -1,91 +1,92 @@
-# BMI Calculator – OASIS Infobyte Python Internship
+# BMI Calculator
+
+A Python-based BMI Calculator developed as **Task 2 of the OASIS Infobyte Python Programming Internship**.
+
+The project evolved from a simple command-line BMI calculator into a graphical application with persistent user records and BMI trend visualization.
+
+---
 
 ## Project Overview
 
-This repository contains the completed **BMI Calculator** application developed for the **OASIS Infobyte Python Internship **. The project progresses through three phases:
+The BMI Calculator calculates Body Mass Index (BMI) from a user's weight and height and classifies the result into the corresponding BMI category.
 
-* **Phase 1 – Beginner Tier** – Command‑line BMI calculator.
-* **Phase 2 – Advanced Tier** – Full‑featured GUI application built with **Tkinter**, persisting user records in **SQLite**, and visualising BMI trends using **Matplotlib**.
-* **Phase 3 – QA, Cleanup & Submission Documentation** – Code cleanup, testing, and documentation.
+The project was developed in three phases:
 
-The final implementation is ready for submission.
+### Phase 1 — Beginner Tier
+A command-line BMI calculator that:
+- Accepts weight and height as input
+- Calculates BMI
+- Determines the BMI category
+- Validates user input
+
+### Phase 2 — Advanced Tier
+A graphical BMI management application built with:
+- Tkinter GUI
+- SQLite database persistence
+- User-specific BMI records
+- BMI history
+- Matplotlib trend visualization
+- Color-coded BMI results
+
+### Phase 3 — QA & Documentation
+- Testing and verification
+- Code cleanup
+- Project documentation
+- Final submission preparation
+
+---
 
 ## Features
 
-* **BMI calculation** using the standard formula `BMI = weight / (height ** 2)`.
-* Classification into **Underweight, Normal, Overweight, Obese**.
-* Multi‑user support – each user’s measurements are stored separately.
-* **SQLite** (`bmi_records.db`) persistence of weight, height, BMI and calculation date.
-* **Tkinter** GUI with:
-  * Input fields for user name, weight (kg) and height (m).
-  * Color‑coded BMI result badge.
-  * History table showing past records.
-  * Matplotlib line‑graph displaying BMI trends over time.
-* Comprehensive unit and integration tests.
+### BMI Calculation
 
-## Technology Stack
+- Calculates BMI using weight and height
+- Displays the calculated BMI value
+- Classifies BMI into:
+  - Underweight
+  - Normal
+  - Overweight
+  - Obese
+- Validates user input
 
-* **Python 3.10+** (standard library).
-* **Tkinter** – native GUI toolkit.
-* **SQLite3** – lightweight relational database (standard library).
-* **Matplotlib** – for BMI trend visualisation (only external dependency).
+### Graphical User Interface
 
-## Installation
+The advanced version provides a Tkinter-based interface with:
 
-1. Clone the repository (once it is pushed to GitHub).
-2. (Optional) Create a virtual environment:
-   ```bash
-   python -m venv .venv
-   .\.venv\Scripts\activate  # Windows
-   ```
-3. Install the required package:
-   ```bash
-   pip install -r requirements.txt
-   ```
-   `requirements.txt` currently contains:
-   ```text
-   matplotlib
-   ```
+- User selection and creation
+- Weight input in kilograms
+- Height input in meters
+- BMI calculation
+- Color-coded result display
+- BMI history table
+- Record saving
+- BMI trend visualization
 
-## Running the Application
+### Data Persistence
 
-```bash
-python bmi_gui.py
-```
+The application uses **SQLite** to store BMI records.
 
-The GUI will launch, allowing you to create new users, record BMI measurements, view history and see a trend graph.
+Stored information includes:
 
-## Usage Guide
+- User
+- Weight
+- Height
+- BMI
+- Calculation date
 
-1. **Select or create a user** from the drop‑down list.
-2. Enter **weight** (kg) and **height** (m).
-3. Click **Calculate** – the BMI value and category appear, colour‑coded.
-4. Click **Save Record** to store the measurement.
-5. The **History** table updates with the new entry.
-6. Click **Show Trend** to view a Matplotlib line chart of BMI over time for the selected user.
+Each user's measurements can be maintained separately and retrieved through the application.
 
-## Project Structure
+### BMI Trend Visualization
 
-```
-BMI Calculator/
-├─ .gitignore                # Git ignore rules
-├─ bmi_calculator.py        # Phase 1 command‑line version (kept for reference)
-├─ bmi_gui.py                # Tkinter GUI application (Phase 2)
-├─ database.py               # SQLite helper module
-├─ requirements.txt          # Python dependencies (matplotlib)
-├─ README.md                 # This file
-├─ bmi_records.db            # SQLite database (sample data)
-├─ screenshots/              # Optional UI screenshots
-└─ __pycache__/              # Ignored by Git
-```
+The application uses **Matplotlib** to display a line graph of BMI measurements over time for the selected user.
 
-## Testing
+This allows previously recorded measurements to be viewed as a trend rather than as individual records only.
 
-Automated tests are located in the `scratch/` directory (generated during development). To run them:
+---
 
-```bash
-python -m unittest discover -s scratch
-```
+## BMI Formula
 
-All tests should pass.
+BMI is calculated using:
 
+```text
+BMI = weight (kg) / height² (m)
